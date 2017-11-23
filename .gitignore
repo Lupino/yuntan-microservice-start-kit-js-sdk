@@ -1,0 +1,8 @@
+node_modules
+dist
+config.js
+.DS_Store
+*.lock
+out
+bundle.js
+package-lock.json
