@@ -56,7 +56,8 @@ export class User {
   createArticle(title, summary='', content='') {
     return this.fetchJSON(`${host}/api/create_article/`, {
       method: 'POST',
-      body: {title, summary, content},
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({title, summary, content}),
     }, 'article');
   }
 
