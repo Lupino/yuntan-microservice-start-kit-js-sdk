@@ -53,6 +53,13 @@ export class User {
     });
   }
 
+  createArticle(title, summary='', content='') {
+    return this.fetchJSON(`${host}/api/create_article/`, {
+      method: 'POST',
+      body: { title, summary, content },
+    }, 'article');
+  }
+
   getAppSecret(service, method, pathname) {
     const q = qs.stringify({pathname, method});
     return this.fetchJSON(`${host}/api/services/${service}/secret/?${q}`, {}, 'secret');
