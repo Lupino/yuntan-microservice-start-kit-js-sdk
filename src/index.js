@@ -11,5 +11,5 @@ if (typeof window !== 'undefined') {
     fetchJSON,
     promiseToCallback,
     callbackToPromise,
-  }
+  };
 }

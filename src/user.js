@@ -7,7 +7,7 @@ import UserService from 'yuntan-service/lib/UserService';
 import ArticleService from 'yuntan-service/lib/ArticleService';
 
 export function weixinAuth(next) {
-  return fetchJSON(`${host}/api/weixinAuth/?${qs.stringify({next})}`);
+  window.location.href = `${host}/api/weixinAuth/?${qs.stringify({next})}`;
 }
 
 export class User {
@@ -56,7 +56,7 @@ export class User {
   createArticle(title, summary='', content='') {
     return this.fetchJSON(`${host}/api/create_article/`, {
       method: 'POST',
-      body: { title, summary, content },
+      body: {title, summary, content},
     }, 'article');
   }
 
