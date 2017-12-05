@@ -1,6 +1,7 @@
 import fetch_ from 'isomorphic-fetch';
 import qs from 'query-string';
 import FormData from 'form-data';
+import keys from 'lodash.keys';
 
 export function fetch(url, options = {}) {
   if (options.body) {
@@ -19,21 +20,25 @@ export function fetch(url, options = {}) {
   return fetch_(url, options);
 }
 
-export async function fetchJSON(url, options, spec=null) {
-  if (typeof options === 'string') {
-    spec = options;
-    options = {};
-  }
+export async function fetchJSON(url, options) {
   options = options || {};
   options['Accept'] = 'application/json';
-  const rsp = await fetch_(url, options);
+  const rsp = await fetch(url, options);
   if (/application\/json/.test(rsp.headers.get('content-type'))) {
     const data = await rsp.json();
     if (data.err) {
       throw new Error(data.err);
     }
-    if (spec) {
-      return data[spec];
+    if (Array.isArray(data)) {
+      return data;
+    }
+    if (typeof data === 'object') {
+      const k = keys(data);
+      if (k.length === 1) {
+        return data[k[0]];
+      } else {
+        return data;
+      }
     }
     return data;
   }

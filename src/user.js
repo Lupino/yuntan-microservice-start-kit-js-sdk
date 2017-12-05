@@ -16,12 +16,12 @@ export class User {
     this.userInfo = userInfo;
   }
 
-  async fetchJSON(url, options = {}, spec = null) {
+  async fetchJSON(url, options = {}) {
     if (this.token) {
       options.headers = options.headers || {};
       options.headers['X-REQUEST-TOKEN'] = this.token;
     }
-    return fetchJSON(url, options, spec);
+    return fetchJSON(url, options);
   }
 
   updateProfile(profile) {
@@ -30,20 +30,18 @@ export class User {
       method: 'POST',
       headers: {'content-type': 'application/json'},
       body: profile,
-    }, 'user');
+    });
   }
 
   async getInfo(force=false) {
     if (!this.userInfo || force) {
-      this.userInfo = await this.fetchJSON(`${host}/api/users/me/`, {}, 'user');
+      this.userInfo = await this.fetchJSON(`${host}/api/users/me/`);
     }
     return this.userInfo;
   }
 
   signout() {
-    return this.fetchJSON(`${host}/api/signout/`, {
-      method: 'POST',
-    }, 'result');
+    return this.fetchJSON(`${host}/api/signout/`, {method: 'POST'});
   }
 
   uploadAvatar(file) {
@@ -58,12 +56,12 @@ export class User {
       method: 'POST',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify({title, summary, content}),
-    }, 'article');
+    });
   }
 
   getAppSecret(service, method, pathname) {
     const q = qs.stringify({pathname, method});
-    return this.fetchJSON(`${host}/api/services/${service}/secret/?${q}`, {}, 'secret');
+    return this.fetchJSON(`${host}/api/services/${service}/secret/?${q}`);
   }
 
   getUserService() {
