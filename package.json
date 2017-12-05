@@ -26,7 +26,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "form-data": "^2.3.1",
-    "lodash.keys": "^4.2.0",
+    "higher-order-helper": "^1.0.1",
     "query-string": "^5.0.1",
     "yuntan-service": "^1.0.26"
   },

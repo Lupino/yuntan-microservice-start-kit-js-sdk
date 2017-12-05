@@ -1,4 +1,4 @@
-import {fetchJSON} from './utils';
+import fetchJSON from 'higher-order-helper/fetchJSON';
 import config, {host} from '../config';
 import qs from 'query-string';
 
